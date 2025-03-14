@@ -3,6 +3,10 @@
 # Ask Doubt on telegram @KingVJ01
 
 import os, logging, string, asyncio, time, re, ast, random, math, pytz, pyrogram
+
+async def get_blogspot_link(original_link):
+    return f"{BLOGSPOT_URL}{original_link}"
+
 from datetime import datetime, timedelta, date, time
 from Script import script
 from info import *
@@ -114,7 +118,8 @@ async def next_page(bot, query):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file['file_size'])}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file['file_name'].split()))}", callback_data=f'{pre}#{file["file_id"]}'
+                    text=f"[{get_size(file['file_size'])}] {file['file_name']}",
+                    url=await get_blogspot_link(f"https://t.me/{temp.U_NAME}?start=file_{file['file_id']}")
                 ),
             ]
             for file in files
@@ -352,7 +357,8 @@ async def filter_yearss_cb_handler(client: Client, query: CallbackQuery):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file['file_size'])}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file['file_name'].split()))}", callback_data=f'{pre}#{file["file_id"]}'
+                    text=f"[{get_size(file['file_size'])}] {file['file_name']}",
+                    url=await get_blogspot_link(f"https://t.me/{temp.U_NAME}?start=file_{file['file_id']}")
                 ),
             ]
             for file in files
@@ -518,7 +524,8 @@ async def filter_episodes_cb_handler(client: Client, query: CallbackQuery):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file['file_size'])}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file['file_name'].split()))}", callback_data=f'{pre}#{file["file_id"]}'
+                    text=f"[{get_size(file['file_size'])}] {file['file_name']}",
+                    url=await get_blogspot_link(f"https://t.me/{temp.U_NAME}?start=file_{file['file_id']}")
                 ),
             ]
             for file in files
@@ -686,7 +693,8 @@ async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file['file_size'])}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file['file_name'].split()))}", callback_data=f'{pre}#{file["file_id"]}'
+                    text=f"[{get_size(file['file_size'])}] {file['file_name']}",
+                    url=await get_blogspot_link(f"https://t.me/{temp.U_NAME}?start=file_{file['file_id']}")
                 ),
             ]
             for file in files
@@ -883,7 +891,8 @@ async def filter_seasons_cb_handler(client: Client, query: CallbackQuery):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file['file_size'])}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file['file_name'].split()))}", callback_data=f'{pre}#{file["file_id"]}'
+                    text=f"[{get_size(file['file_size'])}] {file['file_name']}",
+                    url=await get_blogspot_link(f"https://t.me/{temp.U_NAME}?start=file_{file['file_id']}")
                 ),
             ]
             for file in files
@@ -1021,7 +1030,8 @@ async def filter_qualities_cb_handler(client: Client, query: CallbackQuery):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file['file_size'])}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file['file_name'].split()))}", callback_data=f'{pre}#{file["file_id"]}'
+                    text=f"[{get_size(file['file_size'])}] {file['file_name']}",
+                    url=await get_blogspot_link(f"https://t.me/{temp.U_NAME}?start=file_{file['file_id']}")
                 ),
             ]
             for file in files
@@ -2599,7 +2609,8 @@ async def auto_filter(client, name, msg, reply_msg, ai_search, spoll=False):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file['file_size'])}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file['file_name'].split()))}", callback_data=f'{pre}#{file["file_id"]}'
+                    text=f"[{get_size(file['file_size'])}] {file['file_name']}",
+                    url=await get_blogspot_link(f"https://t.me/{temp.U_NAME}?start=file_{file['file_id']}")
                 ),
             ]
             for file in files
