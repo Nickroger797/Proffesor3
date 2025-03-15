@@ -22,6 +22,16 @@ join_db = JoinReqs
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
+    if len(message.command) > 1:
+        data = message.command[1]
+        if data.startswith("redirected_"):
+            file_id = data.split("_", 1)[1]  # Extract file ID
+            await message.reply_text(f"✅ Redirect Successful! Processing file ID: {file_id}")
+        
+            # Agar koi function hai jo file process karta hai, to usko call karein
+            await send_file(client, message, file_id)  # Make sure send_file is defined
+            return
+
     try:
         await message.react(emoji=random.choice(REACTIONS), big=True)
     except:
