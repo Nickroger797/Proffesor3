@@ -1350,23 +1350,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
         except:
             typed = query.from_user.id
         ident, file_id = query.data.split("#")
-
-        # ✅ Step 1: पहले Blogspot Redirect URL Generate करना  
-        blogspot_redirect_url = f"{BLOGSPOT_URL}?id={file_id}&user={query.from_user.id}"
-
-        # ✅ Step 2: User को Blogspot पर Redirect करना  
-        await query.answer(url=blogspot_redirect_url)
-        return  # ताकि bot यहीं रुक जाए और आगे की process तभी चले जब user वापस आए
-
-        # ✅ Step 3: जब User Blogspot से वापस आए, तब Existing Process Continue हो  
-    if query.data.startswith("getfile"):
-        _, file_id = query.data.split("#")
-
-        # ✅ Step 4: Blogspot से Redirect Confirm करना  
-        if not verify_redirection(file_id, query.from_user.id):
-            return await query.answer("⚠️ पहले Blogspot link पर जाएं और वापस आएं।", show_alert=True)
-
-        # ✅ Step 5: Existing Process Continue करना  
         files_ = await get_file_details(file_id)
         if not files_:
             return await query.answer('Nᴏ sᴜᴄʜ ғɪʟᴇ ᴇxɪsᴛ.')
@@ -1375,25 +1358,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
         size = get_size(files["file_size"])
         f_caption = files["caption"]
         settings = await get_settings(query.message.chat.id)
-
         if CUSTOM_FILE_CAPTION:
             try:
-                f_caption = CUSTOM_FILE_CAPTION.format(
-                    file_name='' if title is None else title,
-                    file_size='' if size is None else size,
-                    file_caption='' if f_caption is None else f_caption
-                )
+                f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if title is None else title,
+                                                       file_size='' if size is None else size,
+                                                       file_caption='' if f_caption is None else f_caption)
             except Exception as e:
                 logger.exception(e)
             f_caption = f_caption
-
         if f_caption is None:
             f_caption = f"{files['file_name']}"
-
-        await query.message.reply_document(
-            document=files["file_id"],
-            caption=f_caption
-        )
 
         try:
             if settings['is_shortlink'] and not await db.has_premium_access(query.from_user.id):
